@@ -1,0 +1,19 @@
+---
+title: "hw1_distributions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### 1.1 
+integrate(dlnorm, mean = 3, sd = 0.5, lower = 25, upper= 50)$value
+
+
+### 1.2
+lower <- qlnorm(0.1, mean = 3, sd = 0.5)
+upper <- qlnorm(0.9, mean = 3, sd = 0.5)
+integrate(dlnorm, mean = 3, sd = 0.5, lower, upper)
+

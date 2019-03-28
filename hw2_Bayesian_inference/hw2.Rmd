@@ -1,0 +1,23 @@
+---
+title: "hw2_Bayesian_inference"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### 2.1 
+df <- read.csv('https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/AnastasiaOrlenko/hw2_Bayesian_inference/hw2_phoible.csv', encoding = 'UTF-8', sep = ',')
+df$proc <- df$consonants / df$phonemes
+print(df[which.max(df$proc), 'language'])
+
+### 2.2
+alpha <- 9.300246
+beta <- 4.4545 
+
+apost <- abs((df$proc) - ((df$consonants + alpha) / (df$phonemes + alpha + beta)))
+print(arrange(df, desc(apost))$language[1:6])
+
+

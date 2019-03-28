@@ -1,0 +1,32 @@
+---
+title: "hw4_Advanced_Bayesian"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### 4.1 
+df <- read_csv('https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/AnastasiaOrlenko/hw4_Advanced_Bayesian/hw4_caretta.csv')
+
+mean_apr = mean(df$vowel.dur, trim = 0.1)
+sd_apr = sd(df$vowel.dur)
+mean_brs02 =  mean(filter(df$speaker == 'brs02')$vowel.dur, trim = 0.1)
+sd_brs02 = sd(filter(df$speaker == 'brs02')$vowel.dur)
+mean_aps = weighted.mean(c(mean_apr, mean_brs02), c(1 / sd_apr, 1 / sd_brs02))
+sd_aps = (1 / sd_apr + 1/sd_brs02)^(-1)
+data.frame(speaker = 'brs02', mean_apos = mean_aps, sd_aps = sd_aps)
+
+
+### 4.2
+mean_tt01 = mean(df[df$speaker == 'tt01', ]$vowel.dur)
+sd_tt01 = sd(df[df$speaker == 'tt01', ]$vowel.dur)
+mean_aps_2 <- weighted.mean(c(mean_apr, mean_tt01), c(1 / sd_apr, 1 / sd_tt01))
+sd_aps_2 <- (1 / sd_apr + 1 / sd_tt01)^(-1)
+
+lower = qnorm(.025, mean_aps_2, sd = sd_aps_2)
+upper = qnorm(.975, mean = mean_aps_2, sd = sd_aps_2)
+data.frame(speaker = 'tt01', lower, upper) 
+

@@ -1,0 +1,32 @@
+---
+title: "hw3_Bayesian_inference"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### 3.1 
+df <- read_csv('https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/AnastasiaOrlenko/hw3_Bayesian_inference/hw3_phoible.csv', encoding = 'UTF-8', sep = ',')
+dnorm(df$consonants, mean = 22, sd = 6)
+
+
+### 3.2
+dff <- read.csv('https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/letter_frequency.csv')
+f = function(x) {prod(x[13], x[15], x[19], x[20])}
+languages = colnames(dff[-14])
+vone = 1/length(languages)
+mostl = c(f(dff$French), f(dff$German), f(dff$Spanish), f(dff$Portuguese), f(dff$Esperanto), f(dff$Italian), f(dff$Turkish), f(dff$Swedish), f(dff$Polish), f(dff$Dutch), f(dff$Danish), f(dff$Icelandic), f(dff$Finnish))
+vtwo = vone*mostl
+apost <- vtwo/sum(vtwo)
+dtf = data.frame(languages, vone, mostl, vtwo, apost)
+max(dtf$apost)
+
+
+### 3.3 
+dfff <- read.csv('https://raw.githubusercontent.com/agricolamz/2019_data_analysis_for_linguists/master/data/students/AnastasiaOrlenko/hw3_Bayesian_inference/hw3_task_3.csv')
+(dfff$a + 33)/(dfff$a + dfff$b + 110)
+
+
